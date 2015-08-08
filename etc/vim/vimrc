@@ -18,7 +18,7 @@
 " |                                                                           |
 " |   ,i = toggle invisibles                                                  |
 " |   ,c = toggle comments                                                    |
-" |   ,F2 = toggle paste "                                                     |
+" |   ,F2 = toggle paste "                                                    |
 " |                                                                           |
 " |   enter and shift-enter = adds a new line after/before the current line   |
 " |                                                                           |
@@ -27,6 +27,33 @@
 " |                                                                           |
 " | Put machine/user specific settings in ~/.vimrc.local                      |
 " -----------------------------------------------------------------------------  
+
+" Vundle **********************************************************************
+" required for Vundle setup
+set nocompatible
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-surround'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'altercation/solarized', {'rtp': 'vim-colors-solarized/'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()   " required
+"*******************************************************************************
+
 
 
 set nocompatible
@@ -51,10 +78,10 @@ function! Tabstyle_tabs()
 endfunction
 
 function! Tabstyle_spaces()
-  " Use 2 spaces
-  set softtabstop=2
-  set shiftwidth=2
-  set tabstop=2
+  " Use 4 spaces
+  set softtabstop=4
+  set shiftwidth=4
+  set tabstop=4
   set expandtab
 endfunction
 
@@ -98,14 +125,13 @@ nmap <Leader>a :silent exec "while !search( @/, \"W\") \| bnext \| 0 \| endwhile
 "set t_Co=256 " 256 colors
 set background=dark 
 syntax on " syntax highlighting
-colorscheme ir_dark
+colorscheme solarized
 
 
 " Status Line *****************************************************************
 set showcmd
 set ruler " Show ruler
 "set ch=2 " Make command line two lines high
-match LongLineWarning '\%120v.*' " Error format when a line is longer than 120
 
 
 " Line Wrapping ***************************************************************

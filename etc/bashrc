@@ -107,9 +107,9 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
   prompt_func() {
       previous_return_value=$?;
       if [ $IS_REMOTE = 'true' ] ; then
-        prompt="\n\[\033]0;${USER} ${PWD}\007\]\[${COLOR_PURPLE}\]\w \[${COLOR_GRAY}\]${USER}@${HOSTNAME%%.*}$(__git_ps1)\[${COLOR_NC}\]\n"
+        prompt="\[\033]0;${USER} ${PWD}\007\]\[${COLOR_PURPLE}\]\w\[${COLOR_LIGHT_GRAY}\]$(__git_ps1)\[${COLOR_NC}\] "
       else
-        prompt="\n\[\033]0;${USER} ${PWD}\007\]\[${COLOR_GREEN}\]\w \[${COLOR_GRAY}\]${USER}@${HOSTNAME%%.*}$(__git_ps1)\[${COLOR_NC}\]\n"
+        prompt="\[\033]0;${USER} ${PWD}\007\]\[${COLOR_GREEN}\]\w\[${COLOR_LIGHT_GRAY}\]$(__git_ps1)\[${COLOR_NC}\] "
       fi
       #prompt="\033]0;${PWD}\007\[${COLOR_GREEN}\]\w\[${COLOR_GRAY}\]$(__git_ps1)\[${COLOR_NC}\] "
       #prompt="\[${COLOR_GREEN}\]\w\[${COLOR_GRAY}\]$(__git_ps1)\[${COLOR_YELLOW}\]$(git_dirty_flag)\[${COLOR_NC}\] "
@@ -207,6 +207,7 @@ find_large_files(){
 alias ll='ls -hl'
 alias la='ls -a'
 alias lla='ls -lah'
+alias c='clear'
 
 # Search
 # Use ack for grepping and find if ack is available
@@ -304,7 +305,7 @@ if [ $IS_INTERACTIVE = 'true' ] ; then
   source ~/cl/bin/rr/rr.sh # Rails tools
   source ~/cl/bin/gt/gt.sh # Git tools
   source ~/cl/bin/be/be.sh # Bundle exec
-  #source ~/cl/bin/sv/sv.sh # SVN tools
+  source ~/cl/bin/sv/sv.sh # SVN tools
 fi
 
 if [ -f ~/.bashrc_local ]; then

@@ -121,7 +121,7 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
       if [ -z "${VIRTUAL_ENV-}" ] ; then
            venv=''
       else
-           venv="[venv: \[${COLOR_BLUE}\]${VIRTUAL_ENV##*/}\[${COLOR_NC}\] "
+           venv="[venv: \[${COLOR_BLUE}\]${VIRTUAL_ENV##*/}\[${COLOR_NC}\]] "
       fi
 
       # if our last command ended in error, display red prompt

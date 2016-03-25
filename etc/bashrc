@@ -105,23 +105,23 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
 
       # Set the color of the path depending on if we're local or ssh'd in
       if [ $IS_REMOTE = 'true' ] ; then
-        path="${COLOR_PURPLE}\w${COLOR_NC}"
+        path="\[${COLOR_PURPLE}\]\w\[${COLOR_NC}\]"
       else
-        path="${COLOR_GREEN}\w${COLOR_NC}"
+        path="\[${COLOR_GREEN}\]\w\[${COLOR_NC}\]"
       fi
 
       # git branch and info. Display in red if branch is "dirty"
       if [[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]] ; then
-          git_branch="${COLOR_RED}$(__git_ps1)${COLOR_NC}"
+          git_branch="\[${COLOR_RED}\]$(__git_ps1)\[${COLOR_NC}\]"
         else
-          git_branch="${COLOR_WHITE}$(__git_ps1)${COLOR_NC}"
+          git_branch="\[${COLOR_WHITE}\]$(__git_ps1)\[${COLOR_NC}\]"
         fi
 
       # virtualenv info
       if [ -z "${VIRTUAL_ENV-}" ] ; then
            venv=''
       else
-           venv="[venv: ${COLOR_BLUE}${VIRTUAL_ENV##*/}${COLOR_NC}] "
+           venv="[venv: \[${COLOR_BLUE}\]${VIRTUAL_ENV##*/}\[${COLOR_NC}\] "
       fi
 
       # if our last command ended in error, display red prompt
@@ -129,7 +129,7 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
       then
           prompt_char=">"
       else
-          prompt_char="${COLOR_RED}>${COLOR_NC}"
+          prompt_char="\[${COLOR_RED}\]>\[${COLOR_NC}\]"
       fi
 
       # put it all together

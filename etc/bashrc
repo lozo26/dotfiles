@@ -79,56 +79,64 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
 
   # Turn on advanced bash completion if the file exists 
   # Get it here: http://www.caliban.org/bash/index.shtml#completion) or 
-  # on OSX: sudo port install bash-completion
+  # on OSX: brew install bash-completion
   if [ -f /etc/bash_completion ]; then
       . /etc/bash_completion
   fi
-  if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
-  fi
   if [ -f /usr/local/etc/bash_completion ]; then
     . /usr/local/etc/bash_completion
+  fi
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
   fi
 
   # git completion
   source ~/cl/bin/git-completion.bash
 
-  # Add completion to source and .
-  complete -F _command source 
-  complete -F _command .
-
-
 
   # Prompts ----------------------------------------------------------
-  #git_dirty_flag() {
-    #git status 2> /dev/null | grep -c : | awk '{if ($1 > 0) print "⚡"}'
-  #}
+
+  # disable virtualenv prompt modification. Its not compatible with this stuff
+  # and it doesn't work with PROMPT_COMMAND anyway
+  VIRTUAL_ENV_DISABLE_PROMPT=1
 
   prompt_func() {
       previous_return_value=$?;
-      if [ $IS_REMOTE = 'true' ] ; then
-        prompt="\[\033]0;${USER} ${PWD}\007\]\[${COLOR_PURPLE}\]\w\[${COLOR_LIGHT_GRAY}\]$(__git_ps1)\[${COLOR_NC}\] "
-      else
-        prompt="\[\033]0;${USER} ${PWD}\007\]\[${COLOR_GREEN}\]\w\[${COLOR_LIGHT_GRAY}\]$(__git_ps1)\[${COLOR_NC}\] "
-      fi
-      #prompt="\033]0;${PWD}\007\[${COLOR_GREEN}\]\w\[${COLOR_GRAY}\]$(__git_ps1)\[${COLOR_NC}\] "
-      #prompt="\[${COLOR_GREEN}\]\w\[${COLOR_GRAY}\]$(__git_ps1)\[${COLOR_YELLOW}\]$(git_dirty_flag)\[${COLOR_NC}\] "
 
+      # Set the color of the path depending on if we're local or ssh'd in
+      if [ $IS_REMOTE = 'true' ] ; then
+        path="${COLOR_PURPLE}\w${COLOR_NC}"
+      else
+        path="${COLOR_GREEN}\w${COLOR_NC}"
+      fi
+
+      # git branch and info. Display in red if branch is "dirty"
+      if [[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]] ; then
+          git_branch="${COLOR_RED}$(__git_ps1)${COLOR_NC}"
+        else
+          git_branch="${COLOR_WHITE}$(__git_ps1)${COLOR_NC}"
+        fi
+
+      # virtualenv info
+      if [ -z "${VIRTUAL_ENV-}" ] ; then
+           venv=''
+      else
+           venv="[venv: ${COLOR_BLUE}${VIRTUAL_ENV##*/}${COLOR_NC}] "
+      fi
+
+      # if our last command ended in error, display red prompt
       if test $previous_return_value -eq 0
       then
-          PS1="${prompt}> "
+          prompt_char=">"
       else
-          PS1="${prompt}\[${COLOR_RED}\]> \[${COLOR_NC}\]"
+          prompt_char="${COLOR_RED}>${COLOR_NC}"
       fi
-  }
-  PROMPT_COMMAND=prompt_func
 
-  # export PS1="\[${COLOR_GREEN}\]\w\[${COLOR_NC}\] > "  # Primary prompt with only a path
-  # export PS1="\[${COLOR_RED}\]\w > \[${COLOR_NC}\]"  # Primary prompt with only a path, for root, need condition to use this for root
-  # export PS1="\[${COLOR_GRAY}\]\u@\h \[${COLOR_GREEN}\]\w > \[${COLOR_NC}\]"  # Primary prompt with user, host, and path 
-  # This runs before the prompt and sets the title of the xterm* window.  If you set the title in the prompt
-  # weird wrapping errors occur on some systems, so this method is superior
-  #export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/} ${USER}@${HOSTNAME%%.*}"; echo -ne "\007"'  # user@host path
+      # put it all together
+      PS1="${venv}${path}${git_branch}${prompt_char} "
+  }
+
+  PROMPT_COMMAND=prompt_func
 
   export PS2='> '    # Secondary prompt
   export PS3='#? '   # Prompt 3
@@ -304,7 +312,6 @@ if [ $IS_INTERACTIVE = 'true' ] ; then
   source ~/cl/bin/mq/mq.sh # MySQL tools
   source ~/cl/bin/rr/rr.sh # Rails tools
   source ~/cl/bin/gt/gt.sh # Git tools
-  source ~/cl/bin/be/be.sh # Bundle exec
   source ~/cl/bin/sv/sv.sh # SVN tools
 fi
 

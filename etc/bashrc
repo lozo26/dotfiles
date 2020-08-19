@@ -86,7 +86,8 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
   if [ -f /usr/local/etc/bash_completion ]; then
     . /usr/local/etc/bash_completion
   fi
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+
+  if type brew >/dev/null 2>&1 && [ -f $(brew --prefix)/etc/bash_completion ] ; then
     . $(brew --prefix)/etc/bash_completion
   fi
 

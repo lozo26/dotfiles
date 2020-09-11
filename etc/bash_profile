@@ -8,7 +8,6 @@ export PLATFORM="$MACHINE-$OS-$OSVERSION"
 # Note, default OS is assumed to be OSX
 
 
-
 # Path ------------------------------------------------------------
 if [ "$OS" = "darwin" ] ; then
   if [ -d /opt/local ]; then
@@ -30,18 +29,8 @@ if [ -d ~/cl/bin ]; then
 fi
 
 
-export ARCHFLAGS="-arch x86_64"
-
  #Load in .bashrc -------------------------------------------------
 source ~/.bashrc
-
-# Hello Messsage --------------------------------------------------
-echo -e "Kernel Information: " `uname -smr`
-echo -e "`bash --version`"
-echo -ne "Uptime: "; uptime
-echo -ne "Server time is: "; date
-
-
 
 # Notes: ----------------------------------------------------------
 # When you start an interactive shell (log in, open terminal or iTerm in OS X, 

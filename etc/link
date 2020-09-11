@@ -19,6 +19,7 @@ else
   link ~/cl/etc/bashrc ~/.bashrc
   link ~/cl/etc/bashrc_help ~/.bashrc_help
   link ~/cl/etc/bashrc_app_specific ~/.bashrc_app_specific
+  link ~/cl/etc/dircolors.ansi-dark ~/.dir_colors
 
   # vim
   link ~/cl/etc/vim/vimrc ~/.vimrc

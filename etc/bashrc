@@ -1,8 +1,3 @@
-# If $OS and $PATH aren't working, try making the terminal launch as a "login
-# shell" so that .bash_profile also will be ran (which is where those vars are
-# setup). All the literature says environment vars should be set in .bash_profile
-# but that doesn't 
-
 if [[ $- == *i* ]] ; then
   export IS_INTERACTIVE=true
 else

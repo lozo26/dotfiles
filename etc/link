@@ -15,6 +15,7 @@ else
   }
 
   # bash
+  link ~/cl/etc/profile ~/.profile
   link ~/cl/etc/bash_profile ~/.bash_profile
   link ~/cl/etc/bashrc ~/.bashrc
   link ~/cl/etc/bashrc_help ~/.bashrc_help

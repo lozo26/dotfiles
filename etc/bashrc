@@ -176,18 +176,13 @@ findportuser() {
 
 findhosts(){
   nmap -sP -n -oG - "$1"/24 | grep "Up" | awk '{print $2}' -
-  echo "To scan those do: nmap $1-254" 
-  echo "To scan and OS detect those do: sudo nmap -O $1-254" 
+  echo "To scan those do: nmap $1-254"
+  echo "To scan and OS detect those do: sudo nmap -O $1-254"
   echo "To intensly scan one do: sudo nmap -sV -vv -PN $1"
 }
 
-monitor_traffic(){
-  # install ngrep with sudo port install ngrep
-  sudo ngrep -W byline -qld en1 "$1" 
-}
-
 find_large_files(){
-  find . -type f -size +50000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'
+  fd -t f -S +50m
 }
 
 
@@ -221,16 +216,11 @@ else
 fi
 
 
-find_replace_log_changes(){
-  find . -type f | xargs grep -n "$1" | tee files_changed.txt | sed 's/:.*$//' | xargs sed -i "s/$1/$2/g"
-}
-
-
 # Misc
 alias reloadbash='source ~/cl/etc/bash_profile'
 
-alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
-alias bigfilesandfolders='du -hsx * | sort -rh | head -20'
+alias ducks='dust -d 1' # Lists folders and files sizes in the current folder
+alias bigfilesandfolders='dust'
 alias m='more'
 alias top='top -o %CPU'
 

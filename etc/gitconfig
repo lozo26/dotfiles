@@ -1,0 +1,31 @@
+[core]
+	excludesfile = ~/.gitignore
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = merges
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	df = diff
+	dc = diff --cached
+	lg = log --oneline --graph --decorate
+	last = log -1 HEAD
+	amend = commit --amend --no-edit
+	unstage = restore --staged --
+	undo = reset --soft HEAD~1
+
+# Machine/identity-specific settings (user.name, user.email, etc.) go in
+# ~/.gitconfig.local, not here — same pattern as .bashrc_local/.vimrc.local.
+# Missing include files are silently ignored by git, so this is safe even
+# before that file exists.
+[include]
+	path = ~/.gitconfig.local

@@ -17,7 +17,7 @@ External tools this dotfiles setup expects beyond a standard Linux install (bash
 |---|---|
 | `nmap` | `findhosts()` (`etc/bashrc`) |
 | `lsof` | `findportuser()` (`etc/bashrc`) |
-| `ctags` | `etc/vim/vimrc` (`Tlist_Ctags_Cmd`, hardcoded to `/usr/local/bin/ctags` — worth revisiting, see TOOLS_TO_INVESTIGATE.md) |
+| `bash-completion` (system package) | Enables `/etc/bash_completion`, which `etc/bashrc` sources. This is also what makes git tab-completion work — git's own completion script ships as part of this package/framework, no separate dotfile needed |
 
 ## Recommended standalone tools (not wrapped by any script)
 

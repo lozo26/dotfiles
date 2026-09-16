@@ -26,6 +26,7 @@ else
   link ~/cl/etc/vim ~/.vim
 
   # git
+  link ~/cl/etc/gitconfig ~/.gitconfig
   link ~/cl/etc/gitignore ~/.gitignore
 
   source ~/.bash_profile

@@ -12,7 +12,7 @@ Candidate modern tools flagged during cleanup that haven't been adopted (or reje
 | [atuin](https://github.com/atuinsh/atuin) | `hf()` history-grep function | Bigger change — full shell-history replacement (fuzzy search, sync, stats), not a 1-line swap |
 | [starship](https://starship.rs/) | Hand-rolled `prompt_func` in `etc/bashrc` | Cross-shell, handles git status/venv natively, no more hand-written PS1 logic |
 | [mise](https://mise.jdx.dev/) | RVM (already removed) | If any language version management is needed again in the future |
-| [git-extras](https://github.com/tj/git-extras) or [lazygit](https://github.com/jesseduffield/lazygit) | The removed `bin/gt/` bespoke git alias suite | Follow-up to figuring out proper git aliases (see memory note) |
+| [git-extras](https://github.com/tj/git-extras) or [lazygit](https://github.com/jesseduffield/lazygit) | Beyond the basic `[alias]` set already in `etc/gitconfig` | Only relevant if the curated alias set ends up feeling insufficient |
 | [shellcheck](https://www.shellcheck.net/) | No current linting on any shell script in this repo | Could wire up as a pre-commit hook or CI check |
 | [chezmoi](https://www.chezmoi.io/) or [GNU Stow](https://www.gnu.org/software/stow/) | The hand-rolled `etc/link` symlink script | Deferred modernization workstream |
 | Neovim + [lazy.nvim](https://github.com/folke/lazy.nvim) | Base Vim, if/when the extension-fatigue wears off | Deferred, larger workstream — as of 2026-09-16 all vendored vim plugins were removed in favor of base Vim; revisit plugin needs from scratch if this happens |

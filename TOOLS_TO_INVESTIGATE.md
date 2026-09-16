@@ -18,3 +18,5 @@ Candidate modern tools flagged during cleanup that haven't been adopted (or reje
 | Neovim + [lazy.nvim](https://github.com/folke/lazy.nvim) (+ telescope.nvim or fzf.vim) | The whole vendored `etc/vim/` plugin tree (ctrlp, fuf, command-t) | Deferred, larger workstream |
 | [termshark](https://termshark.io/) | The removed `monitor_traffic()` (ngrep-based) | Only relevant if packet inspection is ever needed again |
 | [mycli](https://www.mycli.net/) | The removed `bin/mq/` MySQL alias suite | Only relevant if local MySQL work comes back |
+| [eza](https://github.com/eza-community/eza) | `ls`/`ll`/`la`/`lla` aliases + `etc/dircolors.ansi-dark` | Modern `ls` with good built-in colors and git-status awareness; could retire the hand-maintained dircolors file entirely |
+| [tldr](https://tldr.sh/) | The removed `etc/bashrc_help` cheat-sheet aliases | Community-maintained command examples, in-terminal, no file to hand-maintain |

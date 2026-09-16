@@ -19,7 +19,6 @@ else
   link ~/cl/etc/bash_profile ~/.bash_profile
   link ~/cl/etc/bashrc ~/.bashrc
   link ~/cl/etc/bashrc_help ~/.bashrc_help
-  link ~/cl/etc/bashrc_app_specific ~/.bashrc_app_specific
   link ~/cl/etc/dircolors.ansi-dark ~/.dir_colors
 
   # vim
@@ -28,12 +27,10 @@ else
   link ~/cl/etc/vim ~/.vim
 
   # git
-  link ~/cl/etc/gitconfig ~/.gitconfig
   link ~/cl/etc/gitignore ~/.gitignore
   link ~/cl/etc/gitattributes ~/.gitattributes
 
   # misc
-  link ~/cl/etc/subversion ~/.subversion
   link ~/cl/etc/autotest ~/.autotest
   link ~/cl/etc/irbrc ~/.irbrc
   link ~/cl/etc/ssh_config ~/.ssh/config

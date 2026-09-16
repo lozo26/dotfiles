@@ -15,7 +15,10 @@ Candidate modern tools flagged during cleanup that haven't been adopted (or reje
 | [git-extras](https://github.com/tj/git-extras) or [lazygit](https://github.com/jesseduffield/lazygit) | The removed `bin/gt/` bespoke git alias suite | Follow-up to figuring out proper git aliases (see memory note) |
 | [shellcheck](https://www.shellcheck.net/) | No current linting on any shell script in this repo | Could wire up as a pre-commit hook or CI check |
 | [chezmoi](https://www.chezmoi.io/) or [GNU Stow](https://www.gnu.org/software/stow/) | The hand-rolled `etc/link` symlink script | Deferred modernization workstream |
-| Neovim + [lazy.nvim](https://github.com/folke/lazy.nvim) (+ telescope.nvim or fzf.vim) | The whole vendored `etc/vim/` plugin tree (ctrlp, fuf, command-t) | Deferred, larger workstream |
+| Neovim + [lazy.nvim](https://github.com/folke/lazy.nvim) | Base Vim, if/when the extension-fatigue wears off | Deferred, larger workstream — as of 2026-09-16 all vendored vim plugins were removed in favor of base Vim; revisit plugin needs from scratch if this happens |
+| [fzf.vim](https://github.com/junegunn/fzf.vim) | CtrlP (removed) | Only relevant if fuzzy file-finding inside vim is wanted again later; needs the `fzf` binary |
+| [NERD Commenter](https://github.com/preservim/nerdcommenter) | Vim has no built-in comment-toggle | Removed along with everything else, but the feature itself has been genuinely useful before — worth reconsidering on its own even if other plugins stay out |
+| [surround.vim](https://github.com/tpope/vim-surround) | Vim has no built-in quote/tag/paren surround editing | Removed — extremely well-regarded plugin, but had zero custom config/mapping in this repo, suggesting low actual past use |
 | [termshark](https://termshark.io/) | The removed `monitor_traffic()` (ngrep-based) | Only relevant if packet inspection is ever needed again |
 | [mycli](https://www.mycli.net/) | The removed `bin/mq/` MySQL alias suite | Only relevant if local MySQL work comes back |
 | [eza](https://github.com/eza-community/eza) | `ls`/`ll`/`la`/`lla` aliases + `etc/dircolors.ansi-dark` | Modern `ls` with good built-in colors and git-status awareness; could retire the hand-maintained dircolors file entirely |

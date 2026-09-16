@@ -1,14 +1,11 @@
-" -----------------------------------------------------------------------------  
+" -----------------------------------------------------------------------------
 "
 " |                            VIM Settings                                   |
 " |                   (see gvimrc for gui vim settings)                       |
 " |                                                                           |
 " | Some highlights:                                                          |
 " |   jj = <esc>  Very useful for keeping your hands on the home row          |
-" |   ,n = toggle NERDTree off and on                                         |
 " |                                                                           |
-" |   ,f = fuzzy find all files                                               |
-" |   ,b = fuzzy find in all buffers                                          |
 " |   ,p = go to previous file                                                |
 " |                                                                           |
 " |   hh = inserts '=>'                                                       |
@@ -17,7 +14,6 @@
 " |   ,v = new vertical window                                                |
 " |                                                                           |
 " |   ,i = toggle invisibles                                                  |
-" |   ,c = toggle comments                                                    |
 " |   ,F2 = toggle paste "                                                    |
 " |                                                                           |
 " |   enter and shift-enter = adds a new line after/before the current line   |
@@ -26,7 +22,7 @@
 " |   :call Tabstyle_spaces = set tab to 2 spaces                             |
 " |                                                                           |
 " | Put machine/user specific settings in ~/.vimrc.local                      |
-" -----------------------------------------------------------------------------  
+" -----------------------------------------------------------------------------
 
 let mapleader = ","
 imap jj <Esc> " Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
@@ -82,7 +78,7 @@ set cursorline
 " Searching *******************************************************************
 set hlsearch  " highlight search
 set incsearch  " Incremental search, search as you type
-set ignorecase " Ignore case when searching 
+set ignorecase " Ignore case when searching
 set smartcase " Ignore case when searching lowercase
 
 " ,a to continue search throughout all
@@ -90,9 +86,12 @@ nmap <Leader>a :silent exec "while !search( @/, \"W\") \| bnext \| 0 \| endwhile
 
 " Colors **********************************************************************
 "set t_Co=256 " 256 colors
-set background=dark 
+set background=dark
 syntax on " syntax highlighting
 colorscheme evening
+
+" Enable all of Vim's built-in python.vim syntax highlighting groups
+let python_highlight_all=1
 
 
 " Status Line *****************************************************************
@@ -138,11 +137,6 @@ set number " Show line numbers
 set matchpairs+=<:>
 set vb t_vb= " Turn off bell, this could be more annoying, but I'm not sure how
 
-" Comment this out to avoid clash with SimplyIFold
-" TODO: Figure out how to get these to work together
-"set foldmethod=indent
-"set foldlevel=99
-
 " Enable folding with the spacebar
 nnoremap <space> za
 
@@ -163,7 +157,6 @@ map <Leader>p <C-^> " Go back to previous file
 " Omni Completion *************************************************************
 autocmd FileType html :set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType c set omnifunc=ccomplete#Complete
@@ -174,79 +167,18 @@ imap uu _
 imap hh =>
 
 
-" -----------------------------------------------------------------------------  
-" |                              Plug-ins                                     |
-" -----------------------------------------------------------------------------  
+" -----------------------------------------------------------------------------
+" |                           Native Vim Extras                              |
+" -----------------------------------------------------------------------------
 
-" TODO: Find out which plugin this goes to
-let python_highlight_all=1
-
-" NERDTree ********************************************************************
-:noremap <Leader>n :NERDTreeToggle<CR>
-let NERDTreeHijackNetrw=1 " User instead of Netrw when doing an edit /foobar
-let NERDTreeMouseMode=1 " Single click for everything
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+" matchit ships inside Vim itself (since v7); this just turns it on.
+" Extends % to match if/end, tags, etc. instead of just brackets.
+packadd! matchit
 
 
-" NERD Commenter **************************************************************
-let NERDCreateDefaultMappings=0 " I turn this off to make it simple
-
-" Toggle commenting on 1 line or all selected lines. Wether to comment or not
-" is decided based on the first line; if it's not commented then all lines
-" will be commented
-:map <Leader>c :call NERDComment(0, "toggle")<CR> 
-
-"
-" CtrlP ********************************************************
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|vendor|build|resources)$',
-  \ 'file': '\v\.(exe|so|dll|001|002)$' }"
-map <Leader>f :CtrlP<CR>
-map <Leader>b :CtrlPBuffer<CR>
-"let g:ctrlp_dotfiles = 0
-"let g:ctrlp_use_caching = 0
-
-
-" ctags ***************************************************************
-let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-let Tlist_WinWidth = 50
-map <Leader>t :TlistToggle<cr>
-map <Leader>j <C-]>
-
-" SimplyIFold
-let g:SimpylFold_docstring_preview = 1
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-
-
-" -----------------------------------------------------------------------------  
-" |                             OS Specific                                   |
-" |                      (GUI stuff goes in gvimrc)                           |
-" -----------------------------------------------------------------------------  
-
-" Mac *************************************************************************
-"if has("mac") 
-  "" 
-"endif
- 
-" Windows *********************************************************************
-"if has("gui_win32")
-  "" 
-"endif
-
-
-
-" -----------------------------------------------------------------------------  
-" |                               Startup                                     |
-" -----------------------------------------------------------------------------  
-" Open NERDTree on start
-"autocmd VimEnter * exe 'NERDTree' | wincmd l 
-
-
-
-" -----------------------------------------------------------------------------  
+" -----------------------------------------------------------------------------
 " |                               Host specific                               |
-" -----------------------------------------------------------------------------  
+" -----------------------------------------------------------------------------
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
@@ -258,7 +190,4 @@ endif
 " Example .vimrc.local:
 
 "call Tabstyle_tabs()
-"colorscheme ir_dark
 "match LongLineWarning '\%120v.*'
-
-"autocmd User ~/git/some_folder/* call Tabstyle_spaces() | let g:force_xhtml=1

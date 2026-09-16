@@ -1,7 +1,2 @@
 distribute
 etc/vim/.netrwhist
-etc/vim/.VimballRecord
-etc/vim/ruby/command-t/*.o
-etc/vim/ruby/command-t/*.bundle
-etc/vim/ruby/command-t/mkmf.log
-etc/vim/ruby/command-t/Makefile

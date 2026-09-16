@@ -237,9 +237,6 @@ alias top='top -o %CPU'
 alias df='df -h' # Show disk usage
 
 alias psaux='ps -AFH'
-psgrep(){
-  psaux | egrep "$1" | egrep -v "grep|highlight" | highlight green "$1"
-}
 
 alias systail='tail -f /var/log/syslog'
 

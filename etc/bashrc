@@ -142,9 +142,11 @@ fi
 # Navigation -------------------------------------------------------
 alias ..='cd ..'
 alias ...='cd .. ; cd ..'
-cl() { cd $1; ls -la; } 
+cl() { cd $1; ls -la; }
 
-source ~/cl/bin/bashmarks.sh
+if type -P zoxide &>/dev/null ; then
+  eval "$(zoxide init bash)"
+fi
 
 
 
@@ -259,9 +261,6 @@ killhard() {
 # Bring in the other files ----------------------------------------------------
 if [ $IS_INTERACTIVE = 'true' ] ; then
   source ~/.bashrc_help
-
-  source ~/cl/bin/mq/mq.sh # MySQL tools
-  source ~/cl/bin/gt/gt.sh # Git tools
 fi
 
 if [ -f ~/.bashrc_local ]; then

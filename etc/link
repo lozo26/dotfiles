@@ -31,8 +31,6 @@ else
   link ~/cl/etc/gitattributes ~/.gitattributes
 
   # misc
-  link ~/cl/etc/autotest ~/.autotest
-  link ~/cl/etc/irbrc ~/.irbrc
   link ~/cl/etc/ssh_config ~/.ssh/config
 
   source ~/.bash_profile

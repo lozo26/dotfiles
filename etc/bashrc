@@ -19,11 +19,7 @@ export CLICOLOR=1
 
 eval `dircolors ~/.dir_colors` # Set solarized dir colors
 
-if [ "$OS" = "linux" ] ; then
-  alias ls='ls --color=auto' # For linux, etc
-else
-  alias ls='ls -G'  # OS-X SPECIFIC - the -G command in OS-X is for colors, in Linux it's no groups
-fi
+alias ls='ls --color=auto'
 
 # Setup some colors to use later in interactive shell or scripts
 export COLOR_NC='\033[0m' # No Color
@@ -77,23 +73,14 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
 
   # Completion -------------------------------------------------------
 
-  # Turn on advanced bash completion if the file exists 
-  # Get it here: http://www.caliban.org/bash/index.shtml#completion) or 
-  # on OSX: brew install bash-completion
+  # Turn on advanced bash completion if the file exists
+  # Get it here: http://www.caliban.org/bash/index.shtml#completion
   if [ -f /etc/bash_completion ]; then
       . /etc/bash_completion
   fi
   if [ -f /usr/local/etc/bash_completion ]; then
     . /usr/local/etc/bash_completion
   fi
-
-  if type brew >/dev/null 2>&1 && [ -f $(brew --prefix)/etc/bash_completion ] ; then
-    . $(brew --prefix)/etc/bash_completion
-  fi
-
-  # git completion
-  source ~/cl/bin/git-completion.bash
-
 
   # Prompts ----------------------------------------------------------
 
@@ -162,19 +149,9 @@ source ~/cl/bin/bashmarks.sh
 
 
 # Editors ----------------------------------------------------------
-#export EDITOR='mate -w'  # OS-X SPECIFIC - TextMate, w is to wait for TextMate window to close
-#export EDITOR='gedit'  #Linux/gnome
 export EDITOR='vim'  #Command line
 export GIT_EDITOR='vim'
-#alias gvim='/Applications/MacVim.app/Contents/MacOS/vim -g'
-
-if [ "$OS" = "darwin" ] ; then
-  alias v=mvim
-  alias vc=vim
-  alias vt='mvim --remote-tab'
-else
-  alias v=vim
-fi
+alias v=vim
 
 
 
@@ -219,23 +196,18 @@ alias lla='ls -lah'
 alias c='clear'
 
 # Search
-# Use ack for grepping and find if ack is available
-# sudo port install p5-app-ack
-if type -P ack &>/dev/null ; then 
+if type -P rg &>/dev/null ; then
   g(){
-    ack "$*" --all-types --color-match=green --color-filename=blue --smart-case
-  }
-  grb(){
-    ack "$*" --type=ruby --color-match=green --color-filename=blue --smart-case
+    rg "$*" --smart-case
   }
   gw(){
-    ack "$*" --all-types --color-match=green --color-filename=blue --word-regexp --smart-case
+    rg "$*" --smart-case --word-regexp
   }
   gnolog(){
-    ack "$*" --all-types --ignore-dir=log --color-match=green --color-filename=blue --smart-case
+    rg "$*" --smart-case --glob '!log/'
   }
   f(){
-    ack -i -g ".*$*[^\/]*$" | highlight blue ".*/" green "$*[^/]"
+    rg --files | rg -i "$*"
   }
 else
   g(){
@@ -258,24 +230,16 @@ alias reloadbash='source ~/cl/etc/bash_profile'
 alias ducks='du -cksh * | sort -rn|head -11' # Lists folders and files sizes in the current folder
 alias bigfilesandfolders='du -hsx * | sort -rh | head -20'
 alias m='more'
-alias top='top -o cpu' # os x:
+alias top='top -o %CPU'
 
 alias df='df -h' # Show disk usage
 
-if [ "$OS" = "linux" ] ; then
-  alias psaux='ps -AFH'
-else
-  alias psaux='ps aux'
-fi
+alias psaux='ps -AFH'
 psgrep(){
   psaux | egrep "$1" | egrep -v "grep|highlight" | highlight green "$1"
 }
 
-if [ "$OS" = "linux" ] ; then
-  alias systail='tail -f /var/log/syslog'
-else
-  alias systail='tail -f /var/log/system.log'
-fi
+alias systail='tail -f /var/log/syslog'
 
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
@@ -292,41 +256,14 @@ killhard() {
 
 
 
-# Ruby ----------------------------------------------------
-
-# RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
-
-# Fixes problems with sending email in ruby
-#export RUBYOPT="-r openssl"
-
-# Spin: gem install spin kicker
-alias spin="spin serve -Itest | highlight red ' [1-9]0* failures' purple '[_a-zA-Z0-9]*\.rb.[0-9]*' red 'Error:' red 'Failure:' red ' [1-9]0* errors' green ' 0 errors' green ' 0 failures'"
-alias spin_kicker="kicker -r rails -b 'spin push'"
-
-
-
 # Bring in the other files ----------------------------------------------------
 if [ $IS_INTERACTIVE = 'true' ] ; then
   source ~/.bashrc_help
 
   source ~/cl/bin/mq/mq.sh # MySQL tools
-  source ~/cl/bin/rr/rr.sh # Rails tools
   source ~/cl/bin/gt/gt.sh # Git tools
-  source ~/cl/bin/sv/sv.sh # SVN tools
 fi
 
 if [ -f ~/.bashrc_local ]; then
   source ~/.bashrc_local
 fi
-
-
-
-# Test ------------------------------------------------------------------------ 
-
-#if [ "$OS" = "linux" ] ; then
-#elif
-#else
-#fi
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -1,2 +1,3 @@
 distribute
 etc/vim/.netrwhist
+.vendor-cache/

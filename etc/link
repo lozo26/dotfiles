@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z "$PS1" ]; then
+if [ -z "$PS1" ] && [ -z "${DOTFILES_INSTALL:-}" ]; then
   echo -e "${COLOR_RED}You should source this, not run it, for example: source ./link${COLOR_NC}"
 else
 

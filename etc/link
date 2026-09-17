@@ -33,6 +33,9 @@ else
   link ~/cl/etc/tmux.conf ~/.tmux.conf
   link ~/cl/etc/ssh_config ~/.ssh/config
 
+  mkdir -p ~/.config/direnv
+  link ~/cl/etc/direnvrc ~/.config/direnv/direnvrc
+
   source ~/.bash_profile
 
 fi

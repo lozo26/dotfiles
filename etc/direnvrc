@@ -1,0 +1,14 @@
+# Shared direnv layout functions, available in any .envrc via `layout <name>`.
+# See: https://direnv.net/man/direnv-stdlib.1.html#codelayoutcode
+
+# Usage in a project's .envrc:
+#   layout uv
+# Creates ./.venv with uv if it doesn't exist yet, then activates it.
+layout_uv() {
+  if [[ ! -d .venv ]]; then
+    log_status "No .venv found; creating one with uv"
+    uv venv
+  fi
+  export VIRTUAL_ENV="$PWD/.venv"
+  export PATH="$VIRTUAL_ENV/bin:$PATH"
+}

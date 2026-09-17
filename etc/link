@@ -18,7 +18,6 @@ else
   link ~/cl/etc/profile ~/.profile
   link ~/cl/etc/bash_profile ~/.bash_profile
   link ~/cl/etc/bashrc ~/.bashrc
-  link ~/cl/etc/dircolors.ansi-dark ~/.dir_colors
 
   # vim
   link ~/cl/etc/vim/vimrc ~/.vimrc

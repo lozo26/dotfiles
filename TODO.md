@@ -5,7 +5,8 @@ Known gaps and future-improvement candidates — things intentionally left undon
 ## Known gaps in install.sh / fetch-deps.sh
 
 - **Ubuntu/Debian only.** Hard-requires `apt-get`; exits cleanly on anything else rather than failing confusingly. Making this generic across OSes is low priority — see "Cross-OS" below.
-- **`fastmod` isn't automated.** Its latest GitHub release ships no binary assets (source-only tag), and it's not in apt either — only install path is `cargo install fastmod`, which needs a full Rust toolchain. Not worth automating for one optional tool; install manually if wanted.
+- **`fastmod` and `silicon` aren't automated.** Neither publishes binary release assets, and neither is in apt — only install path for either is `cargo install <name>`, which needs a full Rust toolchain. Not worth automating for two optional tools; install manually if wanted.
+- **`broot`'s shell function isn't automated.** Installed via apt (its own release packaging doesn't fit this script's per-platform-asset model safely), but getting the `br` shell function requires a manual one-time `broot --install` — its installer wants to self-modify shell rc files, which would fight with this repo managing them instead.
 - **Not yet tested on an actual fully-offline machine or on Ubuntu 24.04 specifically** — verified on Ubuntu 26.04 with live network. The `.vendor-cache/` → offline-install path is exercised (fetch-deps.sh really downloaded everything, install.sh really installed from a couple of those cached files), but the full "no network at all" + "different Ubuntu version" combination hasn't been run for real yet.
 - **x86_64 only.** Asset patterns in `lib/deps.sh` are hardcoded to `amd64`/`x86_64`. Would need arch detection (`uname -m`) and per-arch patterns to support aarch64, etc.
 
@@ -20,7 +21,6 @@ Not dependencies — nothing in this repo relies on these. Each would replace or
 | Tool | Would help with |
 |---|---|
 | [procs](https://github.com/dalance/procs) | Modern `ps`/process searching |
-| [ouch](https://github.com/ouch-org/ouch) | Universal archive tool (tar/zip/etc in one command) |
 | [lnav](https://lnav.org/) | Searchable/filterable log viewer, if logs get watched often |
 | [btop](https://github.com/aristocratos/btop) or [bottom](https://github.com/ClementTsang/bottom) | Nicer `top` replacement, graphs |
 | [duf](https://github.com/muesli/duf) | Nicer `df` replacement |
@@ -29,11 +29,12 @@ Not dependencies — nothing in this repo relies on these. Each would replace or
 | [mise](https://mise.jdx.dev/) | Language version management, if ever needed beyond `uv` for Python |
 | [git-extras](https://github.com/tj/git-extras) or [lazygit](https://github.com/jesseduffield/lazygit) | Beyond the basic `[alias]` set in `etc/gitconfig`, if that ever feels insufficient |
 | [shellcheck](https://www.shellcheck.net/) | No linting exists on any shell script in this repo yet — could wire up as a pre-commit hook or CI check |
-| [eza](https://github.com/eza-community/eza) | Modern `ls` with git-status-aware coloring — could retire the hand-maintained `etc/dircolors.ansi-dark` |
 | [tldr](https://tldr.sh/) | In-terminal command examples (replaces the old hand-maintained cheat-sheet aliases that used to live in `bashrc_help`) |
 | [fzf.vim](https://github.com/junegunn/fzf.vim), [NERD Commenter](https://github.com/preservim/nerdcommenter), [surround.vim](https://github.com/tpope/vim-surround) | Specific vim plugins that were removed in the base-vim cleanup, worth reconsidering individually if a real need shows up (not as a return to a vendored plugin tree) |
 | [termshark](https://termshark.io/) | Packet inspection, if ever needed again |
 | [mycli](https://www.mycli.net/) | Nicer MySQL CLI, if local MySQL work ever comes back |
+| [typst](https://typst.app/) | Modern typesetting (LaTeX alternative) — investigate if document/report generation ever comes up |
+| [navi](https://github.com/denisidoro/navi) | Interactive cheat-sheet tool (browse/fill-in example commands) — alternative or complement to `tldr` |
 
 ## Larger, deferred workstreams
 

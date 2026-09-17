@@ -16,7 +16,8 @@ Host-specific overrides that shouldn't be tracked in git go in `~/.bashrc_local`
 | `zi` | Interactive picker (via fzf) when you're not sure of the exact `z` match |
 | `..` / `...` | `cd ..` / `cd ../..` |
 | `cl <dir>` | `cd` into `<dir>` and `ls -la` it in one step |
-| `ll` / `la` / `lla` | `ls -hl` / `ls -a` / `ls -lah` |
+| `ls` / `ll` / `la` / `lla` | `eza` / `eza -l --git` / `eza -a` / `eza -la --git` (falls back to plain `ls` variants if `eza` isn't installed) |
+| `broot` | Interactive tree-view file navigator/launcher. Run `broot --install` once by hand to get the `br` shell function (not automated — its installer wants to self-modify shell rc files) |
 
 ## Search
 
@@ -90,8 +91,12 @@ For actual code navigation in a C codebase: run `ctags -R .` in the project root
 | `git amend` | `commit --amend --no-edit` |
 | `git unstage` | `restore --staged --` |
 | `git undo` | `reset --soft HEAD~1` |
+| `git ui` | Launches `gitui` (a terminal UI for git) |
+| `git dt` | Structural diff of working-tree changes via `difftastic`, on demand |
 
 Other settings: `core.excludesfile = ~/.gitignore` (this is what makes the global gitignore below actually work — without it git never reads that file at all), `pull.rebase = merges` (rebases on pull, but preserves local merge commits — plain `rebase = true` would flatten them), `push.autoSetupRemote = true` (no more `--set-upstream` on a new branch's first push), `init.defaultBranch = main`.
+
+**Diff pager**: `core.pager = delta` — every diff-producing command (`diff`, `show`, `log -p`, `blame`) renders through `delta`: syntax-highlighted, side-by-side. `difftastic` (structural/tree-sitter-based diffing — understands that a function moved rather than showing every line as delete+add) is available on demand via `git dt` instead of being the default: better for understanding a refactor, but slower and less scannable for routine small diffs.
 
 **Machine/identity-specific settings** (`user.name`, `user.email`, anything you don't want shared across every machine this repo is deployed to) go in `~/.gitconfig.local`, included via `[include]` at the bottom of `etc/gitconfig` — same pattern as `.bashrc_local`/`.vimrc.local`. Since `~/.gitconfig` is a symlink into this repo, **don't** use `git config --global ...` to set them (that writes through the symlink into the tracked file) — use `git config --file ~/.gitconfig.local <key> <value>` instead.
 
@@ -107,7 +112,30 @@ Hand-rolled in `bashrc`'s `prompt_func` (set as `PROMPT_COMMAND`), not a plugin/
 
 ## Colors / `ls`
 
-`etc/dircolors.ansi-dark` (→ `~/.dir_colors`) controls which colors `ls --color` uses per file type (directories, symlinks, archives, media, etc.) — this is separate from your terminal's color theme, which just sets the base 16 ANSI colors. `colorslist` (alias) dumps all the `$COLOR_*` variables `bashrc` defines for use in scripts/prompts.
+`vivid generate solarized-dark` produces an `LS_COLORS` theme at shell startup, which both `eza` and plain `ls --color` read for per-file-type coloring (directories, symlinks, archives, media, etc.) — this is separate from your terminal's own color theme, which just sets the base 16 ANSI colors. Used to be a hand-maintained `etc/dircolors.ansi-dark` file; `vivid` replaced it entirely. `colorslist` (alias) dumps all the `$COLOR_*` variables `bashrc` defines for use in scripts/prompts.
+
+## CLI toolbox
+
+Standalone tools installed by `install.sh` with no dotfiles wiring beyond being on `$PATH` — reach for them directly:
+
+| Command | What it's for |
+|---|---|
+| `bat <file>` | `cat` with syntax highlighting, git-diff markers, and paging |
+| `hexyl <file>` | Hex viewer |
+| `mdcat <file.md>` | Render markdown in the terminal — handy for reading this repo's own `.md` files |
+| `jless <file.json>` | Interactive JSON viewer/pager (also reads stdin: `curl ... \| jless`) |
+| `choose <fields>` | Simpler `cut`/`awk` alternative for selecting fields from text, e.g. `choose 0 2` |
+| `sd <find> <replace> <file>` | Simpler/faster `sed` alternative for find-and-replace |
+| `ouch compress`/`ouch decompress` | One command for any archive format (zip/tar/7z/...), instead of remembering per-format flags |
+| `just` | Command runner — like `make` but simpler, no `.PHONY`/tab quirks; looks for a `justfile` |
+| `erd` | Tree-view disk usage (erdtree) — complements the `dust`-based `ducks`/`bigfilesandfolders` aliases; `erd` is better for a directory-tree shape, `dust` for a flat sorted-by-size view |
+| `kondo <dir>` | Finds and optionally cleans build-artifact directories (`node_modules`, `target`, `.venv`, etc.) across projects to reclaim disk space |
+| `miniserve <dir>` | Instant HTTP file server for a directory, with upload support — quick alternative to `python -m http.server` |
+| `viddy <command>` | Modern `watch` replacement — highlights what changed between runs |
+
+**Not automated** (documented here so the reasoning isn't lost, not because they're unavailable):
+- **`fastmod`** and **`silicon`** — neither publishes prebuilt release binaries, and neither is in apt. Only install path is `cargo install <name>`, which needs a full Rust toolchain; not worth automating for one optional tool each. `fastmod` is a interactive find-and-replace-across-files tool (a friendlier `sd` for bulk codemods); `silicon` generates syntax-highlighted code screenshots.
+- **`broot`** — see the Navigation section above; installed via apt, but the `br` shell function needs a manual one-time `broot --install`.
 
 ## Misc shell utilities
 

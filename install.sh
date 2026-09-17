@@ -44,16 +44,11 @@ fi
 echo
 
 # --- sudo up front, once -----------------------------------------------
-NEED_SUDO=false
-while IFS='|' read -r name kind bin apt_pkg repo pattern; do
-  [ -z "$name" ] && continue
-  if [ "$kind" = "aptonly" ]; then
-    NEED_SUDO=true
-  fi
-done <<< "$TOOLS_TABLE"
-
-if $NEED_SUDO && ! $DRY_RUN; then
-  echo "Some tools need apt (sudo). You may be prompted for your password once:"
+# Almost every run needs apt for at least one tool (deb-kind installs, or
+# apt-fallback/aptonly ones) - just ask once now instead of trying to
+# predict exactly which tools will need it.
+if ! $DRY_RUN; then
+  echo "This may need apt (sudo) for some tools. You may be prompted for your password once:"
   sudo -v
   echo
 fi
@@ -68,7 +63,11 @@ while IFS='|' read -r name kind bin apt_pkg repo pattern; do
   fi
 
   if $DRY_RUN; then
-    echo "[$name] would install (prefers: official build from $repo, falls back to apt: $apt_pkg)"
+    if [ "$kind" = "aptonly" ]; then
+      echo "[$name] would install via apt: $apt_pkg (no official static build)"
+    else
+      echo "[$name] would install (prefers: official build from $repo, falls back to apt: $apt_pkg)"
+    fi
     continue
   fi
 
@@ -91,10 +90,12 @@ while IFS='|' read -r name kind bin apt_pkg repo pattern; do
   fi
 done <<< "$TOOLS_TABLE"
 
-$DRY_RUN || fixup_fd_apt_name
+$DRY_RUN || { fixup_fd_apt_name; fixup_bat_apt_name; }
 
 echo
-echo "fastmod is not automated (no official binary release) - see REFERENCE.md if you want it."
+echo "fastmod and silicon are not automated (no official binary release, not in apt) -"
+echo "see REFERENCE.md if you want either. broot needs a manual 'broot --install' step"
+echo "after installing (adds the br shell function) - see REFERENCE.md."
 echo
 
 # --- symlink the dotfiles themselves -------------------------------------

@@ -1,5 +1,6 @@
 [core]
 	excludesfile = ~/.gitignore
+	pager = delta
 
 [init]
 	defaultBranch = main
@@ -22,6 +23,20 @@
 	amend = commit --amend --no-edit
 	unstage = restore --staged --
 	undo = reset --soft HEAD~1
+	ui = !gitui
+	dt = difftool -t difftastic --no-prompt
+
+# delta (core.pager above) is a syntax-highlighting side-by-side pager for
+# every diff-producing command (diff, show, log -p, blame). difftastic
+# (structural/tree-sitter diffing) is available on demand instead via
+# `git dt`, not as the default - better for understanding a refactor, but
+# slower and less scannable for routine small diffs.
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
 
 # Machine/identity-specific settings (user.name, user.email, etc.) go in
 # ~/.gitconfig.local, not here — same pattern as .bashrc_local/.vimrc.local.

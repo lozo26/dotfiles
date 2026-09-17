@@ -17,9 +17,23 @@ export TERM=xterm-color
 export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
 export CLICOLOR=1 
 
-eval `dircolors ~/.dir_colors` # Set solarized dir colors
+# vivid generates an LS_COLORS theme; eza and ls --color both read it.
+# Falls back to plain ls with no custom coloring if vivid isn't installed.
+if type -P vivid &>/dev/null ; then
+  export LS_COLORS="$(vivid generate solarized-dark)"
+fi
 
-alias ls='ls --color=auto'
+if type -P eza &>/dev/null ; then
+  alias ls='eza'
+  alias ll='eza -l --git'
+  alias la='eza -a'
+  alias lla='eza -la --git'
+else
+  alias ls='ls --color=auto'
+  alias ll='ls -hl'
+  alias la='ls -a'
+  alias lla='ls -lah'
+fi
 
 # Setup some colors to use later in interactive shell or scripts
 export COLOR_NC='\033[0m' # No Color
@@ -206,9 +220,6 @@ find_large_files(){
 
 
 # Other aliases ----------------------------------------------------
-alias ll='ls -hl'
-alias la='ls -a'
-alias lla='ls -lah'
 alias c='clear'
 
 # Search

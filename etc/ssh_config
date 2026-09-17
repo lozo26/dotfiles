@@ -1,0 +1,15 @@
+# Applies to every host. Add Host-specific blocks below this if you need
+# per-host overrides (they must come AFTER this block - ssh uses the first
+# matching value for each setting).
+Host *
+	# Keep long-running connections (e.g. a tmux session on a remote box)
+	# alive through NAT/firewall idle timeouts instead of silently dying.
+	ServerAliveInterval 60
+	ServerAliveCountMax 3
+
+	# Reuse one authenticated connection for repeated ssh/scp/rsync to the
+	# same host instead of renegotiating each time. Requires
+	# ~/.ssh/sockets to exist (mode 700).
+	ControlMaster auto
+	ControlPath ~/.ssh/sockets/%r@%h-%p
+	ControlPersist 10m

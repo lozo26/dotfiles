@@ -29,6 +29,10 @@ else
   link ~/cl/etc/gitconfig ~/.gitconfig
   link ~/cl/etc/gitignore ~/.gitignore
 
+  # misc
+  link ~/cl/etc/tmux.conf ~/.tmux.conf
+  link ~/cl/etc/ssh_config ~/.ssh/config
+
   source ~/.bash_profile
 
 fi

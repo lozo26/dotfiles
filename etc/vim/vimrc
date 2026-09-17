@@ -177,6 +177,25 @@ packadd! matchit
 
 
 " -----------------------------------------------------------------------------
+" |                        Language Quickfix Wiring                          |
+" -----------------------------------------------------------------------------
+" No plugins - just makeprg/errorformat, then use :make and :copen/:cnext
+" like any other language vim already supports.
+
+" Python: `:make` runs ruff and populates the quickfix list
+autocmd FileType python setlocal makeprg=ruff\ check\ --output-format=concise\ %
+autocmd FileType python setlocal errorformat=%f:%l:%c:\ %m
+
+" C: if there's no Makefile, `:make` falls back to a quick gcc syntax/warning
+" check on the current file instead of erroring. If a Makefile does exist,
+" this is skipped and vim's normal `:make` (-> plain `make`) is used as-is;
+" gcc's own error format matches vim's default errorformat already.
+autocmd FileType c if !filereadable('Makefile') && !filereadable('makefile') |
+      \ setlocal makeprg=gcc\ -Wall\ -Wextra\ -o\ /tmp/%<\ % |
+      \ endif
+
+
+" -----------------------------------------------------------------------------
 " |                               Host specific                               |
 " -----------------------------------------------------------------------------
 if filereadable(expand("~/.vimrc.local"))

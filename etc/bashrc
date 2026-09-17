@@ -82,6 +82,12 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
     . /usr/local/etc/bash_completion
   fi
 
+  # podman completion, in case the system package doesn't already wire it
+  # into the bash-completion framework above
+  if type -P podman &>/dev/null ; then
+    source <(podman completion bash)
+  fi
+
   # Prompts ----------------------------------------------------------
 
   # disable virtualenv prompt modification. Its not compatible with this stuff
@@ -146,6 +152,14 @@ cl() { cd $1; ls -la; }
 
 if type -P zoxide &>/dev/null ; then
   eval "$(zoxide init bash)"
+fi
+
+if type -P fzf &>/dev/null ; then
+  eval "$(fzf --bash)" # fuzzy Ctrl-R history, Ctrl-T file search, Alt-C cd
+fi
+
+if type -P direnv &>/dev/null ; then
+  eval "$(direnv hook bash)" # per-project env vars from .envrc
 fi
 
 

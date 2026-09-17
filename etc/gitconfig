@@ -27,5 +27,11 @@
 # ~/.gitconfig.local, not here — same pattern as .bashrc_local/.vimrc.local.
 # Missing include files are silently ignored by git, so this is safe even
 # before that file exists.
+#
+# Since ~/.gitconfig is a symlink into this repo, DON'T use
+# `git config --global ...` to set them — that writes through the symlink
+# into this tracked file. Target the local file directly instead:
+#   git config --file ~/.gitconfig.local user.name "Your Name"
+#   git config --file ~/.gitconfig.local user.email "you@example.com"
 [include]
 	path = ~/.gitconfig.local

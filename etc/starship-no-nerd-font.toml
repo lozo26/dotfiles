@@ -1,0 +1,28 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Not part of the official no-nerd-font preset (generated via
+# `starship preset no-nerd-font`) - added by hand. Starship's *default*
+# git_branch symbol is U+E0A0, a Powerline/Nerd-Font-exclusive glyph, and
+# the official preset doesn't override it. Without this, "no nerd font"
+# still renders garbled text where the branch icon would be.
+[git_branch]
+symbol = ""
+
+[azure]
+symbol = "☁️ "
+
+[battery]
+full_symbol = "• "
+charging_symbol = "⇡ "
+discharging_symbol = "⇣ "
+unknown_symbol = "❓ "
+empty_symbol = "❗ "
+
+[erlang]
+symbol = "ⓔ "
+
+[nodejs]
+symbol = "[⬢](bold green) "
+
+[pulumi]
+symbol = "🧊 "

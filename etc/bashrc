@@ -176,6 +176,13 @@ if type -P direnv &>/dev/null ; then
   eval "$(direnv hook bash)" # per-project env vars from .envrc
 fi
 
+# broot's `br` function - only exists after running `broot --install` by hand
+# once (not automated by install.sh; see REFERENCE.md). Guarded on the file
+# rather than `type -P broot` since the launcher script is what defines `br`.
+if [ -f ~/.config/broot/launcher/bash/br ]; then
+  source ~/.config/broot/launcher/bash/br
+fi
+
 
 
 # Editors ----------------------------------------------------------

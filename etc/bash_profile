@@ -38,3 +38,5 @@ source ~/.bashrc
 # in this order:
 #     bashrc
 #     .bashrc
+
+source /home/lozo26/.config/broot/launcher/bash/br

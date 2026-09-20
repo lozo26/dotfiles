@@ -20,7 +20,8 @@ export CLICOLOR=1
 # vivid generates an LS_COLORS theme; eza and ls --color both read it.
 # Falls back to plain ls with no custom coloring if vivid isn't installed.
 if type -P vivid &>/dev/null ; then
-  export LS_COLORS="$(vivid generate alabaster_dark)"
+  LS_COLORS="$(vivid generate alabaster_dark)"
+  export LS_COLORS
 fi
 
 if type -P eza &>/dev/null ; then
@@ -170,7 +171,7 @@ fi
 # Navigation -------------------------------------------------------
 alias ..='cd ..'
 alias ...='cd .. ; cd ..'
-cl() { cd $1; ls -la; }
+cl() { cd "$1" || return; ls -la; }
 
 if type -P zoxide &>/dev/null ; then
   eval "$(zoxide init bash)"
@@ -253,7 +254,7 @@ if type -P rg &>/dev/null ; then
   }
 else
   g(){
-    grep -Rin $1 *
+    grep -Rin "$1" *
   }
   f(){
     find . -iname "$1"

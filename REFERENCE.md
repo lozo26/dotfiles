@@ -140,6 +140,14 @@ Standalone tools installed by `install.sh` with no dotfiles wiring beyond being 
 | `miniserve <dir>` | Instant HTTP file server for a directory, with upload support — quick alternative to `python -m http.server` |
 | `viddy <command>` | Modern `watch` replacement — highlights what changed between runs |
 
+## Shell script quality
+
+`shellcheck <file>` statically analyzes a shell script for real bug classes — unquoted variables that break on spaces/globs, missing error handling on `cd`, wrong test operators, portability issues, etc. Run it against this repo's own scripts before committing a change to any of them:
+```
+shellcheck -s bash etc/bashrc etc/link install.sh fetch-deps.sh lib/deps.sh
+```
+Some findings are expected noise, not bugs — `SC1090`/`SC1091` ("can't follow") on every dynamic `source` (`~/.bashrc_local`, `~/.vimrc.local`, `lib/deps.sh`, `podman completion bash`, etc.) just means shellcheck can't statically see into a path it doesn't know ahead of time; these are intentionally dynamic. No pre-commit hook wired up — run it by hand when touching these files.
+
 **Not automated** (documented here so the reasoning isn't lost, not because they're unavailable):
 - **`fastmod`** and **`silicon`** — neither publishes prebuilt release binaries, and neither is in apt. Only install path is `cargo install <name>`, which needs a full Rust toolchain; not worth automating for one optional tool each. `fastmod` is a interactive find-and-replace-across-files tool (a friendlier `sd` for bulk codemods); `silicon` generates syntax-highlighted code screenshots.
 - **`broot`** — see the Navigation section above; installed via apt, but the `br` shell function needs a manual one-time `broot --install`.

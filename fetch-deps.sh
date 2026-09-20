@@ -18,7 +18,7 @@ fi
 echo "Fetching latest official builds into $VENDOR_CACHE ..."
 echo
 
-while IFS='|' read -r name kind bin apt_pkg repo pattern; do
+while IFS='|' read -r name kind _bin _apt_pkg repo pattern; do
   [ -z "$name" ] && continue
 
   if [ "$kind" = "aptonly" ]; then

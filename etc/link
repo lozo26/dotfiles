@@ -5,12 +5,12 @@ if [ -z "$PS1" ] && [ -z "${DOTFILES_INSTALL:-}" ]; then
 else
 
   link (){
-    if [ -e $1 ]; then
-      if [ -e $2 ]; then
-        rm $2
+    if [ -e "$1" ]; then
+      if [ -e "$2" ]; then
+        rm "$2"
       fi
 
-      ln -s $1 $2
+      ln -s "$1" "$2"
     fi
   }
 

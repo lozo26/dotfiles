@@ -21,8 +21,6 @@ Not dependencies — nothing in this repo relies on these. Each would replace or
 | Tool | Would help with |
 |---|---|
 | [mise](https://mise.jdx.dev/) | Language version management, if ever needed beyond `uv` for Python |
-| [git-extras](https://github.com/tj/git-extras) or [lazygit](https://github.com/jesseduffield/lazygit) | Beyond the basic `[alias]` set in `etc/gitconfig`, if that ever feels insufficient |
-| [shellcheck](https://www.shellcheck.net/) | No linting exists on any shell script in this repo yet — could wire up as a pre-commit hook or CI check |
 | [tldr](https://tldr.sh/) | In-terminal command examples (replaces the old hand-maintained cheat-sheet aliases that used to live in `bashrc_help`) |
 | [fzf.vim](https://github.com/junegunn/fzf.vim), [NERD Commenter](https://github.com/preservim/nerdcommenter), [surround.vim](https://github.com/tpope/vim-surround) | Specific vim plugins that were removed in the base-vim cleanup, worth reconsidering individually if a real need shows up (not as a return to a vendored plugin tree) |
 | [typst](https://typst.app/) | Modern typesetting (LaTeX alternative) — investigate if document/report generation ever comes up |

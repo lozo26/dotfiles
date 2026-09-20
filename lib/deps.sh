@@ -52,6 +52,7 @@ delta|deb|delta|git-delta|dandavison/delta|^git-delta_[0-9.]+_amd64\.deb$
 eza|tarball|eza|eza|eza-community/eza|^eza_x86_64-unknown-linux-gnu\.tar\.gz$
 uv|tarball|uv|-|astral-sh/uv|^uv-x86_64-unknown-linux-musl\.tar\.gz$
 starship|tarball|starship|starship|starship/starship|^starship-x86_64-unknown-linux-musl\.tar\.gz$
+shellcheck|tarball|shellcheck|shellcheck|koalaman/shellcheck|^shellcheck-v[0-9.]+\.linux\.x86_64\.tar\.gz$
 ruff|tarball|ruff|-|astral-sh/ruff|^ruff-x86_64-unknown-linux-musl\.tar\.gz$
 just|tarball|just|just|casey/just|^just-[0-9.]+-x86_64-unknown-linux-musl\.tar\.gz$
 ouch|tarball|ouch|-|ouch-org/ouch|^ouch-x86_64-unknown-linux-musl\.tar\.gz$
@@ -129,7 +130,8 @@ ensure_cached() {
   [ -n "$url" ] || return 1
 
   mkdir -p "$VENDOR_CACHE"
-  local dest="$VENDOR_CACHE/${name}--$(basename "$url")"
+  local dest
+  dest="$VENDOR_CACHE/${name}--$(basename "$url")"
   if curl -fsSL --connect-timeout 20 "$url" -o "$dest"; then
     echo "$dest"
   else

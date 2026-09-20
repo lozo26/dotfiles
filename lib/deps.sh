@@ -47,6 +47,7 @@ fzf|deb|fzf|fzf|junegunn/fzf|^fzf_[0-9.]+_amd64\.deb$
 bat|deb|bat|bat|sharkdp/bat|^bat_[0-9.]+_amd64\.deb$
 hexyl|deb|hexyl|hexyl|sharkdp/hexyl|^hexyl_[0-9.]+_amd64\.deb$
 vivid|deb|vivid|vivid|sharkdp/vivid|^vivid_[0-9.]+_amd64\.deb$
+duf|deb|duf|duf|muesli/duf|^duf_[0-9.]+_linux_amd64\.deb$
 delta|deb|delta|git-delta|dandavison/delta|^git-delta_[0-9.]+_amd64\.deb$
 eza|tarball|eza|eza|eza-community/eza|^eza_x86_64-unknown-linux-gnu\.tar\.gz$
 uv|tarball|uv|-|astral-sh/uv|^uv-x86_64-unknown-linux-musl\.tar\.gz$

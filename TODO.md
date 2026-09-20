@@ -23,7 +23,6 @@ Not dependencies — nothing in this repo relies on these. Each would replace or
 | [procs](https://github.com/dalance/procs) | Modern `ps`/process searching |
 | [lnav](https://lnav.org/) | Searchable/filterable log viewer, if logs get watched often |
 | [btop](https://github.com/aristocratos/btop) or [bottom](https://github.com/ClementTsang/bottom) | Nicer `top` replacement, graphs |
-| [duf](https://github.com/muesli/duf) | Nicer `df` replacement |
 | [atuin](https://github.com/atuinsh/atuin) | Full shell-history upgrade (fuzzy search, sync, stats) — bigger change than a 1-line swap, replaces the `hf()` function |
 | [starship](https://starship.rs/) | Replace the hand-rolled `prompt_func` in `bashrc` with a cross-shell prompt framework |
 | [mise](https://mise.jdx.dev/) | Language version management, if ever needed beyond `uv` for Python |

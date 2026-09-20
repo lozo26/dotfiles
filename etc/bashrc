@@ -261,7 +261,11 @@ alias bigfilesandfolders='dust'
 alias m='more'
 alias top='top -o %CPU'
 
-alias df='df -h' # Show disk usage
+if type -P duf &>/dev/null ; then
+  alias df='duf'
+else
+  alias df='df -h' # Show disk usage
+fi
 
 # Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"

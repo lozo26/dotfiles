@@ -147,6 +147,8 @@ Standalone tools installed by `install.sh` with no dotfiles wiring beyond being 
 |---|---|
 | `hf <pattern>` | Grep `~/.bash_history` |
 | `find_large_files` | Files over 50MB under the cwd (via `fd`) |
+| `df` | `duf` if installed (colorized filesystem/mount table), else plain `df -h` |
+| `ducks` / `bigfilesandfolders` | `dust -d 1` / `dust` — what's using space *inside* a directory, tree view. `duf` (above) is the complementary whole-filesystem view — "how full is each disk" vs "what's taking space in here" |
 | `reloadbash` | Re-source `bash_profile` without opening a new shell |
 | `profileme` | Your most-used shell commands, from history |
 | `cp_folder` | `cp -Rpv` — copy a folder preserving permissions/dates |

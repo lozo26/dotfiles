@@ -112,7 +112,11 @@ Hand-rolled in `bashrc`'s `prompt_func` (set as `PROMPT_COMMAND`), not a plugin/
 
 ## Colors / `ls`
 
-`vivid generate solarized-dark` produces an `LS_COLORS` theme at shell startup, which both `eza` and plain `ls --color` read for per-file-type coloring (directories, symlinks, archives, media, etc.) — this is separate from your terminal's own color theme, which just sets the base 16 ANSI colors. Used to be a hand-maintained `etc/dircolors.ansi-dark` file; `vivid` replaced it entirely. `colorslist` (alias) dumps all the `$COLOR_*` variables `bashrc` defines for use in scripts/prompts.
+`vivid generate alabaster_dark` produces an `LS_COLORS` theme at shell startup, which both `eza` and plain `ls --color` read for per-file-type coloring (directories, symlinks, archives, media, etc.) — this is separate from your terminal's own color theme, which just sets the base 16 ANSI colors. Used to be a hand-maintained `etc/dircolors.ansi-dark` file; `vivid` replaced it entirely.
+
+To try other themes: `vivid themes` lists them all, `LS_COLORS="$(vivid generate <theme>)" eza -la` previews one without changing your session, and changing the theme permanently is just editing the `vivid generate <theme>` line in `etc/bashrc`.
+
+`colorslist` (alias) dumps all the `$COLOR_*` variables `bashrc` defines for use in scripts/prompts.
 
 ## CLI toolbox
 

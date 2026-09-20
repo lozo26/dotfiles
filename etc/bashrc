@@ -20,7 +20,7 @@ export CLICOLOR=1
 # vivid generates an LS_COLORS theme; eza and ls --color both read it.
 # Falls back to plain ls with no custom coloring if vivid isn't installed.
 if type -P vivid &>/dev/null ; then
-  export LS_COLORS="$(vivid generate solarized-dark)"
+  export LS_COLORS="$(vivid generate alabaster_dark)"
 fi
 
 if type -P eza &>/dev/null ; then

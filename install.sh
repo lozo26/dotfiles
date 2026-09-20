@@ -82,7 +82,13 @@ while IFS='|' read -r name kind bin apt_pkg repo pattern; do
   if ! $installed; then
     if [ "$apt_pkg" != "-" ]; then
       echo "[$name] installing via apt: $apt_pkg"
-      sudo apt-get install -y "$apt_pkg"
+      # Not every apt_pkg exists on every Ubuntu version this repo targets
+      # (e.g. starship is in 26.04's repo but not 24.04's) - don't let one
+      # missing/failed package abort every tool after it in this loop.
+      if ! sudo apt-get install -y "$apt_pkg"; then
+        echo "[$name] apt install failed too (package may not exist on this Ubuntu version)"
+        echo "         see REFERENCE.md for manual install instructions"
+      fi
     else
       echo "[$name] could not install automatically (no cache, no network/release asset, no apt package)"
       echo "         see REFERENCE.md for manual install instructions"

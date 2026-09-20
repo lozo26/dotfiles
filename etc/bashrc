@@ -144,7 +144,15 @@ if [ $IS_INTERACTIVE = 'true' ] ; then # Interactive shell only
       PS1="${venv}${path}${git_branch}${prompt_char} "
   }
 
-  PROMPT_COMMAND=prompt_func
+  # Prefer starship if it's installed - same info as prompt_func above
+  # (path, git branch/dirty state, exit code) plus language-version badges,
+  # command duration, and more, with no bash string-wrangling to maintain.
+  # Falls back to the hand-rolled prompt_func if starship isn't installed.
+  if type -P starship &>/dev/null ; then
+    eval "$(starship init bash)"
+  else
+    PROMPT_COMMAND=prompt_func
+  fi
 
   export PS2='> '    # Secondary prompt
   export PS3='#? '   # Prompt 3

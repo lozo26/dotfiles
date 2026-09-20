@@ -7,7 +7,7 @@ Known gaps and future-improvement candidates — things intentionally left undon
 - **Ubuntu/Debian only.** Hard-requires `apt-get`; exits cleanly on anything else rather than failing confusingly. Making this generic across OSes is low priority — see "Cross-OS" below.
 - **`fastmod` and `silicon` aren't automated.** Neither publishes binary release assets, and neither is in apt — only install path for either is `cargo install <name>`, which needs a full Rust toolchain. Not worth automating for two optional tools; install manually if wanted.
 - **`broot`'s shell function isn't automated.** Installed via apt (its own release packaging doesn't fit this script's per-platform-asset model safely), but getting the `br` shell function requires a manual one-time `broot --install` — its installer wants to self-modify shell rc files, which would fight with this repo managing them instead.
-- **Not yet tested on an actual fully-offline machine or on Ubuntu 24.04 specifically** — verified on Ubuntu 26.04 with live network. The `.vendor-cache/` → offline-install path is exercised (fetch-deps.sh really downloaded everything, install.sh really installed from a couple of those cached files), but the full "no network at all" + "different Ubuntu version" combination hasn't been run for real yet.
+- **Not yet tested on an actual fully-offline machine or on Ubuntu 24.04 specifically** — verified on Ubuntu 26.04 with live network. The `.vendor-cache/` → offline-install path is exercised (fetch-deps.sh really downloaded everything, install.sh really installed from a couple of those cached files), but the full "no network at all" + "different Ubuntu version" combination hasn't been run for real yet. Confirmed apt package availability genuinely does vary by Ubuntu version (`starship` is in 26.04's repo but not 24.04's) — `install.sh` now handles an apt-fallback failure gracefully instead of aborting the whole run (fixed 2026-09-20), so this shouldn't be a blocker when it's actually tried, but worth verifying for real.
 - **x86_64 only.** Asset patterns in `lib/deps.sh` are hardcoded to `amd64`/`x86_64`. Would need arch detection (`uname -m`) and per-arch patterns to support aarch64, etc.
 
 ## sshf needs real Host entries to be useful
@@ -20,7 +20,6 @@ Not dependencies — nothing in this repo relies on these. Each would replace or
 
 | Tool | Would help with |
 |---|---|
-| [starship](https://starship.rs/) | Replace the hand-rolled `prompt_func` in `bashrc` with a cross-shell prompt framework |
 | [mise](https://mise.jdx.dev/) | Language version management, if ever needed beyond `uv` for Python |
 | [git-extras](https://github.com/tj/git-extras) or [lazygit](https://github.com/jesseduffield/lazygit) | Beyond the basic `[alias]` set in `etc/gitconfig`, if that ever feels insufficient |
 | [shellcheck](https://www.shellcheck.net/) | No linting exists on any shell script in this repo yet — could wire up as a pre-commit hook or CI check |

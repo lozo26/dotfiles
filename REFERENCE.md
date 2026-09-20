@@ -104,7 +104,9 @@ Other settings: `core.excludesfile = ~/.gitignore` (this is what makes the globa
 
 ## Prompt
 
-Hand-rolled in `bashrc`'s `prompt_func` (set as `PROMPT_COMMAND`), not a plugin/framework:
+Uses `starship` if it's installed, falling back to a hand-rolled `prompt_func` otherwise (`etc/bashrc`, in the interactive-shell block) — no config file needed to get starship's defaults, which already cover everything the fallback does, plus language-version badges, command-duration timing, and more. To customize starship beyond its defaults: `~/.config/starship.toml` (not currently tracked by this repo — add `etc/starship.toml` + an `etc/link` entry if that's ever wanted).
+
+The fallback `prompt_func`, active only when `starship` isn't installed:
 - Path color: green locally, purple when `$SSH_CONNECTION` is set (i.e. you're SSH'd in) — a quick visual cue for "am I on a remote box right now."
 - Git branch (via `__git_ps1`, from bash-completion): white normally, red if the working tree is dirty (`git status --porcelain` non-empty).
 - Active virtualenv name in brackets, if `$VIRTUAL_ENV` is set.

@@ -20,18 +20,12 @@ Not dependencies — nothing in this repo relies on these. Each would replace or
 
 | Tool | Would help with |
 |---|---|
-| [procs](https://github.com/dalance/procs) | Modern `ps`/process searching |
-| [lnav](https://lnav.org/) | Searchable/filterable log viewer, if logs get watched often |
-| [btop](https://github.com/aristocratos/btop) or [bottom](https://github.com/ClementTsang/bottom) | Nicer `top` replacement, graphs |
-| [atuin](https://github.com/atuinsh/atuin) | Full shell-history upgrade (fuzzy search, sync, stats) — bigger change than a 1-line swap, replaces the `hf()` function |
 | [starship](https://starship.rs/) | Replace the hand-rolled `prompt_func` in `bashrc` with a cross-shell prompt framework |
 | [mise](https://mise.jdx.dev/) | Language version management, if ever needed beyond `uv` for Python |
 | [git-extras](https://github.com/tj/git-extras) or [lazygit](https://github.com/jesseduffield/lazygit) | Beyond the basic `[alias]` set in `etc/gitconfig`, if that ever feels insufficient |
 | [shellcheck](https://www.shellcheck.net/) | No linting exists on any shell script in this repo yet — could wire up as a pre-commit hook or CI check |
 | [tldr](https://tldr.sh/) | In-terminal command examples (replaces the old hand-maintained cheat-sheet aliases that used to live in `bashrc_help`) |
 | [fzf.vim](https://github.com/junegunn/fzf.vim), [NERD Commenter](https://github.com/preservim/nerdcommenter), [surround.vim](https://github.com/tpope/vim-surround) | Specific vim plugins that were removed in the base-vim cleanup, worth reconsidering individually if a real need shows up (not as a return to a vendored plugin tree) |
-| [termshark](https://termshark.io/) | Packet inspection, if ever needed again |
-| [mycli](https://www.mycli.net/) | Nicer MySQL CLI, if local MySQL work ever comes back |
 | [typst](https://typst.app/) | Modern typesetting (LaTeX alternative) — investigate if document/report generation ever comes up |
 | [navi](https://github.com/denisidoro/navi) | Interactive cheat-sheet tool (browse/fill-in example commands) — alternative or complement to `tldr` |
 

@@ -125,6 +125,7 @@ Standalone tools installed by `install.sh` with no dotfiles wiring beyond being 
 | Command | What it's for |
 |---|---|
 | `bat <file>` | `cat` with syntax highlighting, git-diff markers, and paging |
+| `procs` | Modern `ps` replacement — colorized, tree view, and `procs <pattern>` filters by name/command without piping through `grep` |
 | `hexyl <file>` | Hex viewer |
 | `mdcat <file.md>` | Render markdown in the terminal — handy for reading this repo's own `.md` files |
 | `jless <file.json>` | Interactive JSON viewer/pager (also reads stdin: `curl ... \| jless`) |

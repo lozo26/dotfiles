@@ -62,6 +62,7 @@ mdcat|tarball|mdcat|-|swsnr/mdcat|^mdcat-[0-9.]+-x86_64-unknown-linux-gnu\.tar\.
 sd|tarball|sd|-|chmln/sd|^sd-v[0-9.]+-x86_64-unknown-linux-gnu\.tar\.gz$
 viddy|tarball|viddy|-|sachaos/viddy|^viddy-v[0-9.]+-linux-x86_64\.tar\.gz$
 jless|zip|jless|-|PaulJuliusMartinez/jless|^jless-v[0-9.]+-x86_64-unknown-linux-gnu\.zip$
+procs|zip|procs|procs|dalance/procs|^procs-v[0-9.]+-x86_64-linux\.zip$
 miniserve|rawbin|miniserve|-|svenstaro/miniserve|^miniserve-[0-9.]+-x86_64-unknown-linux-musl$
 tmux|aptonly|tmux|tmux|-|-
 universal-ctags|aptonly|ctags|universal-ctags|-|-
